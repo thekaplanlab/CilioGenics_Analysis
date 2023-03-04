@@ -1,4 +1,4 @@
-**CilioGenics is an integrated method for predicting the ciliar genes**
+**CilioGenics is an integrated method for predicting the ciliary genes**
 
 **Load the following packages**
 
