@@ -44,14 +44,14 @@ DimPlot(reyfmans.all.combined, reduction = "tsne", label = TRUE, repel = TRUE)
 FeaturePlot(reyfmans.all.combined, "WDR31")
 DefaultAssay(reyfmans.all.combined)<-"RNA"
 ```
-**UMAP for TMEM231, IFT81 and NEKL10**
+****UMAP for TMEM231, IFT81 and NEKL10****
 
 ![reyfman_gene_umap_1](https://user-images.githubusercontent.com/12661265/225610997-e5314613-d506-44d4-be1a-d8a4ef956902.png)
 
 
-**Comparative Genomics (Phylogenetic profiling)**
+****Comparative Genomics (Phylogenetic profiling)****
 
-**Load the following packages**
+****Load the following packages****
 
 ``` Python
 library(data.table)
