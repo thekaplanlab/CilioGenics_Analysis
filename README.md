@@ -2,7 +2,8 @@
 
 To more accurately anticipate ciliary genes, CilioGenics combines several approaches, including as single-cell RNA sequencing, protein-protein interactions (PPIs), comparative genomics, transcription factor (TF)-network analysis, and text mining. 
 
-Due to space limitations, the current repository contains programs for each strategy, and data will be uploaded individually.
+Due to space limitations, the current repository contains programs for each strategy.
+
 
 **Single cell RNA-seq analysis code**
 
