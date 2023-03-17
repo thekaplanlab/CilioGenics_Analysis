@@ -5,7 +5,7 @@ To more accurately predict ciliary genes, CilioGenics combines several approache
 Due to space limitations, the current repository contains programs for each strategy.
 
 
-**Single cell RNA-seq analysis code**
+**Single cell RNA-seq analysis**
 
 **Load the following package**
 
