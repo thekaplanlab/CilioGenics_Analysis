@@ -17,33 +17,38 @@ library(Seurat)
 Dowload scRNA-seq file and read it 
 
 ``` Python
-reyfman_dir<-dir("./sc_files/Reyfman")
-reyfman_dir<-reyfman_dir[grepl("filtered", reyfman_dir)]
-reyfman_dir_don<-reyfman_dir[grepl("Donor", reyfman_dir)]
-reyfman_dir_dis<-reyfman_dir[!grepl("Donor", reyfman_dir)]
-reyfman_dir_dis<-reyfman_dir_dis[!grepl("Cryobiopsy", reyfman_dir_dis)]
-reyfman_all<-c(reyfman_dir_don, reyfman_dir_dis)
-reyfmans<-list()
+lung_dir <- dir("./GSE178360_RAW")
+lung_dir_1 <- lung_dir[grepl("filtered", lung_dir)]
+lungs <- list()
+#install.packages("hdf5r") if it is not installed.
+for (i in 1:3){
+  lung_mat <- Read10X_h5(lung_dir_1[i])
+  lung_mat1 <- CreateSeuratObject(lung_mat)
+  lungs[[i]]<-lung_mat1
+}
+lungs.list<-lapply(X = lungs, FUN = function(x) {
+  x<-NormalizeData(x)
+  x<-FindVariableFeatures(x, selection.method = "vst", nfeatures = 2000)
+})
+#ctr+shft+alt+m replace all
+features<-SelectIntegrationFeatures(object.list = lungs.list)
+lungs.anchors<-FindIntegrationAnchors(object.list = lungs.list, anchor.features = features)
+integrate_all <- Reduce(intersect, lapply(lungs.anchors@object.list, rownames)) # create list of common genes to keep
+lungs.combined<-IntegrateData(anchorset = lungs.anchors, features.to.integrate = integrate_all)
+DefaultAssay(lungs.combined)<-"integrated"
 ```
 
 **Data visulaziation**
 ``` Python
-ElbowPlot(reyfmans.all.combined, ndims = 30)
-reyfmans.all.combined<-ScaleData(reyfmans.all.combined, verbose = FALSE)
-reyfmans.all.combined<-RunPCA(reyfmans.all.combined, npcs = 30, verbose = FALSE)
-reyfmans.all.combined<-RunUMAP(reyfmans.all.combined, reduction = "pca", dims = 1:18)
-reyfmans.all.combined<-RunTSNE(reyfmans.all.combined, reduction = "pca", dims = 1:18)
-reyfmans.all.combined<-FindNeighbors(reyfmans.all.combined, reduction = "pca", dims = 1:18)
-reyfmans.all.combined<-FindClusters(reyfmans.all.combined, resolution = 0.1)
-DimPlot(reyfmans.all.combined, reduction = "umap", label = TRUE)
-exp_reyfmans<-AverageExpression(reyfmans.all.combined)
-exp_reyfmans_rna<-exp_reyfmans[["RNA"]]
-p1<-DimPlot(reyfmans.all.combined, reduction = "umap", group.by = "stim")
-p2<-DimPlot(reyfmans.all.combined, reduction = "umap", label = TRUE, repel = TRUE)
-p1 + p2
-DimPlot(reyfmans.all.combined, reduction = "tsne", label = TRUE, repel = TRUE)
-FeaturePlot(reyfmans.all.combined, "WDR31")
-DefaultAssay(reyfmans.all.combined)<-"RNA"
+lungs.combined <- readRDS("lungs.combined.RDS", refhook = NULL)
+lungs.combined<-ScaleData(lungs.combined, verbose = FALSE)
+lungs.combined<-RunPCA(lungs.combined, npcs = 30, verbose = FALSE)
+ElbowPlot(lungs.combined, ndims = 30)
+lungs.combined<-RunUMAP(lungs.combined, reduction = "pca", dims = 1:23)
+lungs.combined<-RunTSNE(lungs.combined, reduction = "pca", dims = 1:23)
+lungs.combined<-FindNeighbors(lungs.combined, reduction = "pca", dims = 1:23)
+lungs.combined<-FindClusters(lungs.combined, resolution = 0.1)
+DimPlot(lungs.combined, reduction = "umap", label = TRUE)
 ```
 **UMAP for TMEM231, IFT81 and NEK10**
 
