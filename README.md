@@ -54,6 +54,14 @@ DimPlot(lungs.combined, reduction = "umap", label = TRUE)
 
 ![reyfman_gene_umap_1](https://user-images.githubusercontent.com/12661265/225610997-e5314613-d506-44d4-be1a-d8a4ef956902.png)
 
+**Annotate cells in scRNA-seq data**
+
+``` Python
+plot1 <- DimPlot(object = lungs.combined, reduction = "umap",label = TRUE, repel = FALSE,
+        group.by = 'customclassif')
+```        
+
+![UMAP_names](https://user-images.githubusercontent.com/12661265/225907931-ee5e83dc-964f-46c5-a277-09e7a21f3779.png)
 
 **Comparative Genomics (Phylogenetic profiling)**
 
