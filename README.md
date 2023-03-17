@@ -53,9 +53,6 @@ DimPlot(lungs.combined, reduction = "umap", label = TRUE)
 
 ![Umap_No_cell](https://user-images.githubusercontent.com/12661265/225908441-2f7ee32b-12de-47c3-8339-bccdeb7b0c6e.png)
 
-**UMAP for TMEM231, IFT81 and NEK10**
-
-![reyfman_gene_umap_1](https://user-images.githubusercontent.com/12661265/225610997-e5314613-d506-44d4-be1a-d8a4ef956902.png)
 
 **Annotate cells in scRNA-seq data**
 
@@ -65,6 +62,15 @@ plot1 <- DimPlot(object = lungs.combined, reduction = "umap",label = TRUE, repel
 ```        
 ![Umap_Cell_names](https://user-images.githubusercontent.com/12661265/225908354-d829eef2-8739-482b-8bd7-b044ecf21c16.png)
 
+**UMAP for IFT88, TMEM231, NEK10, WDR54, WDR38, ZNF474, LGR5 (a non-ciliary gene)**
+
+
+``` Python
+FeaturePlot(lung.all.combined, features = c("IFT88", "TMEM231", "NEK10", "WDR54", 
+                                            "WDR38", "ZNF474", "LGR5"),min.cutoff = "q10", 
+            max.cutoff = "q90")
+```    
+![UMAP_IFT88](https://user-images.githubusercontent.com/12661265/225918548-1e3e476e-741d-467b-97bd-ca8562a402e2.png)
 
 
 
