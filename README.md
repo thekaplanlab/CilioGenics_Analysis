@@ -51,8 +51,6 @@ lungs.combined<-FindClusters(lungs.combined, resolution = 0.1)
 DimPlot(lungs.combined, reduction = "umap", label = TRUE)
 ```
 
-![Umap_No_cell](https://user-images.githubusercontent.com/12661265/225908441-2f7ee32b-12de-47c3-8339-bccdeb7b0c6e.png)
-
 
 **Annotate cells in scRNA-seq data**
 
