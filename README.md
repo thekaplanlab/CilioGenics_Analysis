@@ -50,6 +50,9 @@ lungs.combined<-FindNeighbors(lungs.combined, reduction = "pca", dims = 1:23)
 lungs.combined<-FindClusters(lungs.combined, resolution = 0.1)
 DimPlot(lungs.combined, reduction = "umap", label = TRUE)
 ```
+
+![Umap_No_cell](https://user-images.githubusercontent.com/12661265/225908441-2f7ee32b-12de-47c3-8339-bccdeb7b0c6e.png)
+
 **UMAP for TMEM231, IFT81 and NEK10**
 
 ![reyfman_gene_umap_1](https://user-images.githubusercontent.com/12661265/225610997-e5314613-d506-44d4-be1a-d8a4ef956902.png)
@@ -60,8 +63,10 @@ DimPlot(lungs.combined, reduction = "umap", label = TRUE)
 plot1 <- DimPlot(object = lungs.combined, reduction = "umap",label = TRUE, repel = FALSE,
         group.by = 'customclassif')
 ```        
+![Umap_Cell_names](https://user-images.githubusercontent.com/12661265/225908354-d829eef2-8739-482b-8bd7-b044ecf21c16.png)
 
-![UMAP_names](https://user-images.githubusercontent.com/12661265/225907931-ee5e83dc-964f-46c5-a277-09e7a21f3779.png)
+
+
 
 **Comparative Genomics (Phylogenetic profiling)**
 
