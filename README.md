@@ -14,7 +14,7 @@ Due to space limitations, the current repository contains programs for each stra
 library(Seurat)
 ```
 
-Dowload scRNA-seq file and read it 
+Dowload scRNA-seq file from NCBI and load the file.
 
 ``` Python
 lung_dir <- dir("./GSE178360_RAW")
