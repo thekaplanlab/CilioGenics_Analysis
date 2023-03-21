@@ -68,6 +68,8 @@ FeaturePlot(lung.all.combined, features = c("IFT88", "TMEM231", "NEK10", "WDR54"
                                             "WDR38", "ZNF474", "LGR5"),min.cutoff = "q10", 
             max.cutoff = "q90")
 ```    
+LRG5 is only displayed as a negative control as it is not a ciliary candidate gene.
+
 ![UMAP_IFT88](https://user-images.githubusercontent.com/12661265/225918548-1e3e476e-741d-467b-97bd-ca8562a402e2.png)
 
 
