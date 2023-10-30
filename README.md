@@ -1,22 +1,35 @@
 **CilioGenics is an integrated method for predicting the ciliary genes**
 
-To more accurately predict ciliary genes, CilioGenics combines several approaches, including as single-cell RNA sequencing, protein-protein interactions (PPIs), comparative genomics, transcription factor (TF)-network analysis, and text mining. 
+To more accurately predict ciliary genes, CilioGenics combines several approaches, including as single-cell RNA sequencing, protein-protein interactions (PPIs), comparative genomics, transcription factor (TF)-network analysis, and text mining.
 
-The current repository contains codes for each method, and representative codes are presented below. 
+The current repository contains codes for each method, and representative codes are presented below.
 
+#### **Score calculations**
+
+To calculate score of each section (interactions, scRNA-seq, motifs, text mining), the corresponding R script can be run. To calculate all scores, or final CilioGenics score, `ciliogenics_scores.R` script can be run.
+
+Please note that `interaction_scores.R` script will download a relatively large file (\~6.7 GB) to generate scores.
+
+To clone the repo and generate ciliogenics scores, open terminal and run:
+
+```         
+git clone https://github.com/thekaplanlab/CilioGenics_Analysis
+cd CilioGenics_Analysis
+
+R ciliogenics_scores.R
+```
 
 **Single cell RNA-seq analysis**
 
 **Load the following package**
 
-
-``` Python
+``` python
 library(Seurat)
 ```
 
 Dowload scRNA-seq file from NCBI and load the file.
 
-``` Python
+``` python
 lung_dir <- dir("./GSE178360_RAW")
 lung_dir_1 <- lung_dir[grepl("filtered", lung_dir)]
 lungs <- list()
@@ -39,7 +52,8 @@ DefaultAssay(lungs.combined)<-"integrated"
 ```
 
 **Data visulaziation**
-``` Python
+
+``` python
 lungs.combined <- readRDS("lungs.combined.RDS", refhook = NULL)
 lungs.combined<-ScaleData(lungs.combined, verbose = FALSE)
 lungs.combined<-RunPCA(lungs.combined, npcs = 30, verbose = FALSE)
@@ -51,34 +65,32 @@ lungs.combined<-FindClusters(lungs.combined, resolution = 0.1)
 DimPlot(lungs.combined, reduction = "umap", label = TRUE)
 ```
 
-
 **Annotate cells in scRNA-seq data**
 
-``` Python
+``` python
 plot1 <- DimPlot(object = lungs.combined, reduction = "umap",label = TRUE, repel = FALSE,
         group.by = 'customclassif')
-```        
+```
+
 ![Umap_Cell_names](https://user-images.githubusercontent.com/12661265/225908354-d829eef2-8739-482b-8bd7-b044ecf21c16.png)
 
 **UMAP for IFT88, TMEM231, NEK10, WDR54, WDR38, ZNF474, LGR5 (a non-ciliary gene)**
 
-
-``` Python
+``` python
 FeaturePlot(lung.all.combined, features = c("IFT88", "TMEM231", "NEK10", "WDR54", 
                                             "WDR38", "ZNF474", "LGR5"),min.cutoff = "q10", 
             max.cutoff = "q90")
-```    
+```
+
 LRG5 is only displayed as a negative control as it is not a ciliary candidate gene.
 
 ![UMAP_IFT88](https://user-images.githubusercontent.com/12661265/225918548-1e3e476e-741d-467b-97bd-ca8562a402e2.png)
-
-
 
 **Comparative Genomics (Phylogenetic profiling)**
 
 **Load the following packages**
 
-``` Python
+``` python
 library(data.table)
 library(geneName)
 library(readxl)
@@ -99,6 +111,3 @@ colnames(aa_50_temp)[3] <- "cluster_num"
 a <- as.data.frame(cbind(newscores_50, tree_50))
 a[, 2:73] <- lapply(a[, 2:73], function(x) as.numeric(as.character(x)))
 ```
-
-
-
