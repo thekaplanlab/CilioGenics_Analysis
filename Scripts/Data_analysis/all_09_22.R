@@ -16,10 +16,10 @@ library(ontologyIndex)
 library(cluster)
 
 
-yannis<-read_xlsx(paste0("files/SupplementaryTable2_edited.xlsx")) %>%
+yannis<-read_xlsx(paste0("./files/SupplementaryTable2_edited.xlsx")) %>%
   rename("Gene_name" = "Gene Name") %>%
   mutate(yannis = 1)
-clime<-fread(paste0("files/human_cilia_clime.txt"), select = "Gene Symbol") %>%
+clime<-fread(paste0("./files/human_cilia_clime.txt"), select = "Gene Symbol") %>%
   rename("Gene_name" = "Gene Symbol") %>%
   mutate(clime = 1)
 
@@ -30,7 +30,7 @@ source("functions.R")
 
 ### Read files required for common ----
 
-hgnc_names<-fread("files/hgnc_names.txt", select = c(1,3,11)) %>%
+hgnc_names<-fread("./files/hgnc_names.txt", select = c(1,3,11)) %>%
   filter(!grepl("-", `Approved symbol`)) %>%
   dplyr::select(1,2) %>%
   unique()
@@ -43,14 +43,14 @@ hgnc_names<-fread("files/hgnc_names.txt", select = c(1,3,11)) %>%
 
 ### Ciliary and non ciliary gene lists
 
-ciliaryGenes<-fread("files/goldstandart_v2.txt")
+ciliaryGenes<-fread("./files/goldstandart_v2.txt")
 ciliaryGenes$is.ciliary<-1
 ciliaryGenes<-hgncConverter(ciliaryGenes, "Gene_name")
 ciliaryGenes$Gene_name[ciliaryGenes$Gene_name == "CILK"]<-"CILK1"
 ciliaryGenes$Gene_name[ciliaryGenes$Gene_name == "GPBAR"]<-"GPBAR1"
 ciliaryGenes<-na.omit(ciliaryGenes)
 
-negativeCiliary<-read_xls("files/Nevers_2017_NegativeGenesInsightsCiiaryGenes_SuppTable3.xls")
+negativeCiliary<-read_xls("./files/Nevers_2017_NegativeGenesInsightsCiiaryGenes_SuppTable3.xls")
 negativeCiliary<-negativeCiliary[,1]
 colnames(negativeCiliary)<-"Gene_name"
 negativeCiliary<-hgncConverter(negativeCiliary, "Gene_name")
@@ -58,7 +58,7 @@ negativeCiliary$is.ciliary<-0
 
 negativeCiliary<-anti_join(negativeCiliary, ciliaryGenes, by = "Gene_name")
 
-ciliatest<-read_xlsx("files/cilia_genes_references.xlsx")
+ciliatest<-read_xlsx("./files/cilia_genes_references.xlsx")
 colnames(ciliatest)[1]<-"Gene_name"
 ciliatest<-hgncConverter(ciliatest, "Gene_name")
 ciliatest<-anti_join(ciliatest, ciliaryGenes, by = "Gene_name")
@@ -84,25 +84,25 @@ alltest<-rbind(ciliatest, negativeTest)
 
 ### Orthology data ----
 
-orthology<-fread("files/ORTHOLOGY-ALLIANCE_COMBINED_0.tsv.gz") %>% filter(IsBestScore == "Yes")
+orthology<-fread("./files/ORTHOLOGY-ALLIANCE_COMBINED_0.tsv.gz") %>% filter(IsBestScore == "Yes")
 orthology<-orthology[orthology$Gene2SpeciesName == "Homo sapiens", c(2,4,6,8)]
 orthology<-hgncConverter(orthology, "Gene2Symbol")
 
 #### Mouse ----
 
-mouse_orthology<-fread("files/HGNC_AllianceHomology.rpt")
+mouse_orthology<-fread("./files/HGNC_AllianceHomology.rpt")
 colnames(mouse_orthology)[1:16]<-colnames(mouse_orthology)[2:17]
 mouse_orthology<-mouse_orthology[,-17]
 colnames(mouse_orthology)[2]<-"Gene_name"
 
-mouse_synonyms<-fread("files/MRK_List2.rpt")
+mouse_synonyms<-fread("./files/MRK_List2.rpt")
 colnames(mouse_synonyms)[c(7,12)]<-c("Gene_name","Gene_synonyms")
 mouse_synonyms<-separate_rows(mouse_synonyms, Gene_synonyms, sep = "\\|") %>% 
   dplyr::select(7,12) %>% unique()
 mouse_synonyms<-mouse_synonyms[mouse_synonyms$Gene_synonyms != "",]
 mouse_orthology<-left_join(mouse_orthology, mouse_synonyms, by = "Gene_name")
 
-hgnc_mouse<-fread("files/hgnc_names.txt") %>% 
+hgnc_mouse<-fread("./files/hgnc_names.txt") %>% 
   filter(Status == "Approved") %>% 
   dplyr::select(1,3) %>% 
   hgncConverter("Approved symbol")
@@ -123,7 +123,7 @@ cele_ids<-fread("https://downloads.wormbase.org/releases/WS285/species/c_elegans
 
 #### Drosophila ----
 
-drosophila<-fread("files/dmel_human_orthologs_disease_fb_2021_06.tsv.gz")
+drosophila<-fread("./files/dmel_human_orthologs_disease_fb_2021_06.tsv.gz")
 ort_dro<-orthology[orthology$Gene1SpeciesName == "Drosophila melanogaster",]
 ort_dro$Gene1Symbol<-gsub("α","alpha",ort_dro$Gene1Symbol)
 onlyortdro<-anti_join(ort_dro, drosophila, by = c("Gene1Symbol" = "Dmel_gene_symbol"))
@@ -137,7 +137,7 @@ drosophila<-rbind(drosophila, onlyortdro[,c(1,2)]) %>% unique() %>% hgncConverte
 
 ### Biogrid ----
 
-biogrid_mitab <- fread("files/BIOGRID-ALL-4.4.205.mitab.txt")
+biogrid_mitab <- fread("./files/BIOGRID-ALL-4.4.205.mitab.txt")
 biogrid_mitab$`Confidence Values` <- as.numeric(gsub("score:", "", biogrid_mitab$`Confidence Values`))
 
 # biogrid_mitab_pro<-biogrid_mitab[grepl("MI:0407|MI:0915|MI:0914|MI:0403", biogrid_mitab$`Interaction Types`),]
@@ -259,7 +259,7 @@ mit_biogrid <- mit_biogrid[!is.na(mit_biogrid$Interactor_A) & !is.na(mit_biogrid
 
 ### Intact ----
 
-intact <- fread("files/intact.txt.1", select = c(5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 21, 22)) %>%
+intact <- fread("./files/intact.txt.1", select = c(5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 21, 22)) %>%
   unique() %>%
   mutate(ppi_score = as.numeric(str_extract(`Confidence value(s)`, "(?<=intact-miscore:).+"))) %>%
   filter(!is.na(ppi_score)) %>%
@@ -391,7 +391,7 @@ bioin <- rbind(mit_biogrid, onlyintact)
 ### Huri ----
 
 
-huri <- fread("files/HI-union.psi", select = c(3, 4, 7, 8, 9, 10, 11, 12, 15), header = FALSE) %>%
+huri <- fread("./files/HI-union.psi", select = c(3, 4, 7, 8, 9, 10, 11, 12, 15), header = FALSE) %>%
   mutate(
     V3 = str_extract(V3, "ENSG.*?(?=\\.)"),
     V4 = str_extract(V4, "ENSG.*?(?=\\.)"),
@@ -429,7 +429,7 @@ bioinhu_pro <- bioinhu[!grepl("MI:0254", bioinhu$`Interaction Detection Method`)
 
 ### Scoring weights ----
 
-owl <- get_ontology("files/mi.owl")
+owl <- get_ontology("./files/mi.owl")
 
 idmpar <- data.frame(
   method = c("MI:0013", "MI:0090", "MI:0254", "MI:0255", "MI:0401", "MI:0428"),
@@ -447,7 +447,7 @@ itpar <- data.frame(
 
 bioinhu_gen <- bioinhu[grepl("MI:0254", bioinhu$`Interaction Detection Method`), -10]
 
-alliance_dro <- fread("files/dro_alliance.tsv.gz", select = c(5:13))
+alliance_dro <- fread("./files/dro_alliance.tsv.gz", select = c(5:13))
 alliance_dro$Interactor_A <- str_extract(alliance_dro$`Alias(es) interactor A`, "(?<=flybase:).+?(?=\\(gene name\\))")
 alliance_dro$Interactor_A <- gsub('"', "", alliance_dro$Interactor_A)
 alliance_dro$Interactor_B <- str_extract(alliance_dro$`Alias(es) interactor B`, "(?<=flybase:).+?(?=\\(gene name\\))")
@@ -470,7 +470,7 @@ onlyalldro <- anti_join(alliance_dro, bioinhu_gen,
 
 colnames(onlyalldro) <- colnames(bioinhu_gen)
 
-alliance_cele <- fread("files/cele_alliance.tsv.gz", select = c(5:13))
+alliance_cele <- fread("./files/cele_alliance.tsv.gz", select = c(5:13))
 
 alliance_cele$Interactor_A <- str_extract(alliance_cele$`Alias(es) interactor A`, "(?<=wormbase:).+?(?=\\(public_name\\))")
 alliance_cele$Interactor_B <- str_extract(alliance_cele$`Alias(es) interactor B`, "(?<=wormbase:).+?(?=\\(public_name\\))")
@@ -622,7 +622,7 @@ write.table(prot_int, "protein_interaction_scores.txt", row.names = FALSE, quote
 
 ### Reyfman ----
 
-reyfman <- readRDS("files/markers_reyfman.RDS") %>%
+reyfman <- readRDS("./files/markers_reyfman.RDS") %>%
   filter(
     cluster == "Ciliated Cells", pct.1 - pct.2 > 0,
     p_val_adj < 0.001
@@ -643,7 +643,7 @@ reyfman$mean_score[reyfman$mean_score == 0] <- 0.00001
 
 ### Carraro et al. ----
 
-carraro <- readRDS("files/markers.RDS")
+carraro <- readRDS("./files/markers.RDS")
 carraro <- carraro[[2]] %>%
   filter(p_val_adj < 0.001, pct.1 - pct.2 > 0) %>%
   mutate(
@@ -662,7 +662,7 @@ carraro <- carraro[[2]] %>%
 
 ### Habermann et al. ----
 
-habermann <- fread("files/banovich_markers.txt") %>%
+habermann <- fread("./files/banovich_markers.txt") %>%
   filter(
     cluster == "Ciliated" | cluster == "Differentiating Ciliated",
     p_val_adj < 0.001, pct.1 - pct.2 > 0
@@ -684,7 +684,7 @@ habermann <- fread("files/banovich_markers.txt") %>%
 
 # Murthy et al.
 
-murthy <- readRDS("files/murthy_diff.RDS")
+murthy <- readRDS("./files/murthy_diff.RDS")
 #murthy$Gene_name<-rownames(murthy)
 murthy <- murthy %>%
   filter(p_val_adj < 0.001, pct.1 - pct.2 > 0) %>%
@@ -703,7 +703,7 @@ murthy <- murthy %>%
 
 ### C. elegans single cell ----
 
-celegans <- fread("files/celegans_sc_ciliated_oxygen_2022.txt") %>%
+celegans <- fread("./files/celegans_sc_ciliated_oxygen_2022.txt") %>%
   filter(higher.expr == "Set 1" & q.val < 0.05 & (pct.1 - pct.2) > 0) %>%
   mutate(
     gene = as.character(gene),
@@ -724,7 +724,7 @@ celegans <- fread("files/celegans_sc_ciliated_oxygen_2022.txt") %>%
 
 ### Trachea single cell ----
 
-trachea <- fread("files/trachea_all_markers.txt") %>%
+trachea <- fread("./files/trachea_all_markers.txt") %>%
   filter(
     cluster == "Ciliated Cells", pct.1 - pct.2 > 0,
     p_val_adj < 0.001
@@ -747,7 +747,7 @@ trachea<-trachea[-c(1,2),]
 
 ### CenGen single cell ----
 
-cengen <- fread("files/difex_cengen.csv") %>%
+cengen <- fread("./files/difex_cengen.csv") %>%
   filter(human_symbol != "") %>%
   filter(
     cluster == "Sensory", pct.1 - pct.2 > 0,
@@ -840,7 +840,7 @@ write.table(cluster_scores, "cluster_scores.txt", sep = "\t", row.names = FALSE,
 
 ## Motif scores ----
 
-pan_motif <- read_xlsx("files/Table S16.xlsx", sheet = "Ciliated_cells") %>%
+pan_motif <- read_xlsx("./files/Table S16.xlsx", sheet = "Ciliated_cells") %>%
   dplyr::select(total, pairs)
 pan_motif$motif <- str_split(pan_motif$pairs, "_", simplify = TRUE)[, 1]
 pan_motif$Gene_name <- str_split(pan_motif$pairs, "_", simplify = TRUE)[, 2]
@@ -858,7 +858,7 @@ pan_motif <- hgncConverter(pan_motif, "Gene_name")
 
 ## foxj1 ***********************
 
-foxj1 <- read_xlsx("files/SupplemantaryTable1.xlsx", sheet = 2) %>%
+foxj1 <- read_xlsx("./files/SupplemantaryTable1.xlsx", sheet = 2) %>%
   dplyr::select(`Target Gene Name`) %>%
   count(`Target Gene Name`) %>%
   rename("Gene_name" = `Target Gene Name`, "total" = n) %>%
@@ -901,7 +901,7 @@ write.table(motif_scores2, "motif_scores.txt", sep = "\t", row.names = FALSE, qu
 
 #source("proteinAtlas_webcrawling.R")
 
-proatlas2 <- fread("files/protein_atlas_2022.txt")
+proatlas2 <- fread("./files/protein_atlas_2022.txt")
 colnames(proatlas2) <- c(
   "Gene_name", "Cilia_comments", "Cilium_comments", "Centrosome_comments", "Flagella_comments", "Flagellum_comments",
   "Cilia", "Cilium", "Centrosome", "Flagella", "Flagellum"
@@ -1901,7 +1901,7 @@ pheatmap(alll3[,1:5], cluster_cols = FALSE, cluster_rows = FALSE,
 proatlas_scores2
 
 
-proatlas2 <- fread("files/protein_atlas_2022.txt")
+proatlas2 <- fread("./files/protein_atlas_2022.txt")
 colnames(proatlas2) <- c(
   "Gene_name", "Cilia_comments", "Cilium_comments", "Centrosome_comments", "Flagella_comments", "Flagellum_comments",
   "Cilia", "Cilium", "Centrosome", "Flagella", "Flagellum"
@@ -1967,10 +1967,10 @@ ggsave("pa_comparison2.jpg", plot = ph, width = 4.5, height = 6.5, dpi = 300)
 
 ### SC comparison heatmap ----
 
-yannis<-read_xlsx(paste0(pwd, "/files/SupplementaryTable2_edited.xlsx")) %>%
+yannis<-read_xlsx(paste0(pwd, "/./files/SupplementaryTable2_edited.xlsx")) %>%
   rename("Gene_name" = "Gene Name") %>%
   mutate(yannis = 1)
-clime<-fread(paste0(pwd,"/files/human_cilia_clime.txt"), select = "Gene Symbol") %>%
+clime<-fread(paste0(pwd,"/./files/human_cilia_clime.txt"), select = "Gene Symbol") %>%
   rename("Gene_name" = "Gene Symbol") %>%
   mutate(clime = 1)
 
