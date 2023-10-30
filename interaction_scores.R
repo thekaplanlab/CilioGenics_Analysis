@@ -1,6 +1,12 @@
 
 source("data.R")
 
+# download necessary files
+## This may take a while
+
+download.file(url = "https://figshare.com/ndownloader/articles/24459811/versions/1",
+              destfile = "./files/interaction_files.zip")
+
 
 ## Interactions ----
 
