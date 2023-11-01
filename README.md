@@ -57,7 +57,7 @@ You will see an interactive heatmap that shows the clusters between ciliated and
 
 **When you click the “Single Cell Clusters”, you will see a selection bar**
 
-Select one of the options and you will see the UMAP plot for the selected tissue. Also, there is another selection bar next to the UMAP plot which can generate the DotPlot with the selected gene. Lastly, at the bottom of the page, you can see the differential analysis belonging to the selected cluster. 
+Choose one of the options, and you'll be presented with the UMAP plot corresponding to the selected tissue. Additionally, there is another selection bar adjacent to the UMAP plot that can generate the DotPlot featuring the chosen gene. Finally, at the bottom of the page, you can observe the results of the selected cluster's differential analysis.
 
 ![figure 10](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/cefe827b-71f1-4d6b-9a0a-42448e08ea26)
 
