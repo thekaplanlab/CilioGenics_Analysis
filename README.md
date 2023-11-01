@@ -5,7 +5,7 @@ To more accurately predict ciliary genes, CilioGenics combines several approache
 The current repository contains codes for each method, and representative codes are presented below.
 
 #### **Score calculations**
-
+ 
 To calculate score of each section (interactions, scRNA-seq, motifs, text mining), the corresponding R script can be run. To calculate all scores, or final CilioGenics score, `ciliogenics_scores.R` script can be run.
 
 Please note that `interaction_scores.R` script will download a relatively large file (\~6.7 GB) to generate scores.
