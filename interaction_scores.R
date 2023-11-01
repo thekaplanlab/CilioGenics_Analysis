@@ -4,9 +4,12 @@ source("data.R")
 # download necessary files
 ## This may take a while
 
-download.file(url = "https://figshare.com/ndownloader/articles/24459811/versions/1",
-              destfile = "./files/interaction_files.zip")
+options(timeout=10000)
 
+download.file(url = "https://figshare.com/ndownloader/articles/24459811/versions/1",
+              destfile = "./files/interaction_files.zip", mode='wb')
+
+unzip("./files/interaction_files.zip", exdir = "./files")
 
 ## Interactions ----
 
