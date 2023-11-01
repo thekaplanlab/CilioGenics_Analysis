@@ -49,7 +49,9 @@ When you go to the “Explore data” on the left sidebar, you will see some hea
 
 **Click the “Phylogenetic Analysis”**
 
-You will see an interactive heatmap that shows the clusters between ciliated and non-ciliated cells. Also, you can see the genes in the cluster list below part of the page. 
+There will be a display of an interactive heatmap depicting each cluster and illustrating the distribution of genes between ciliated and non-ciliated cells.
+
+An interactive heatmap illustrating the distinctions between ciliated and non-ciliated cells will be displayed. Additionally, you can view the list of genes in the cluster located below on the page.
 
 ![figure8](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/4c3672e5-3009-4250-b822-014ca50899cb)
 
@@ -73,7 +75,7 @@ For the differential expression analysis:
 
 **Click the “Publications”:**
 
-You will see the list of the publications and the number of the genes below. 
+Users have the opportunity to examine a list of ciliary candidate genes collected from publications.
 
 ![figure 13](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/1dd129a0-c92e-457c-95d9-adb449cb8068)
 
@@ -89,7 +91,7 @@ You will see the selection bar for Motifs, then, after the selection motifs you 
 
 **Click the “Protein Atlas”:**
 
-You will see the list of genes in the Human Protein Atlas databases by selecting the keywords Cilia, Cilium, Centrosome, Flagella, and Flagellum, respectively. 
+Users can explore the compilation of genes in the Human Protein Atlas databases, obtained through the use of the keywords Cilia, Cilium, Centrosome, Flagella, and Flagellum. 
 
  ![figure 17](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/2a741027-b57f-4b6c-a200-dc244a2245cd)
 
