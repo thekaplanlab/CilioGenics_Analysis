@@ -25,75 +25,73 @@ Go to (https://ciliogenics.com/?page=Home)
 
 When you go to the website, you will see 1: “Gene-Search” bar and 2: “Explore the gene list”.
 
-![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/23f05436-40ec-4e2f-bd31-d063ee19879f) 
+![1](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/25293a61-d0cf-4798-853a-6d308c45ae50)
 
- 
 **Let’s go with option 1:**
 
 If you search for a gene (e.g ARL13B)
 
-![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/4bdb9646-0db6-4b21-bd3b-dd80ba50ea9a)
+![Adsız tasarım(5)](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/9f4985dd-5c09-4df3-bd58-62a6e86e03e3)
 
- 
 You will see a box for “Gene info” and another box for “CilioGenics scores for each category”
 
- ![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/db1ddb25-f29b-4553-a576-387d7765108f) 
+![FİGURE 3](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/37867f5b-a1fc-4223-895a-9fbde75f376c)
 
 **Let’s go with the second option:**
 
 Click “Explore the gene list” and you will see a gene list. You can calibrate the range of the score with the help of the scale bar under each title. 
 
- ![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/6273bfdb-4a13-405a-8880-8b64a3903643)
+![Adsız tasarım(6)](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/efb9d930-7622-474f-8797-4c707f95443f)
 
 When you go to the “Explore data” on the left sidebar, you will see some heads that the other functions or properties belong to CilioGenics. 
 
- ![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/3913e577-8cc1-4d79-b35c-1ca20453bb84)
+![Adsız tasarım(7)](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/265c7489-ba28-4493-835d-415c6f75a81e)
 
 **Click the “Phylogenetic Analysis”**
 
 You will see an interactive heatmap that shows the clusters between ciliated and non-ciliated cells. Also, you can see the genes in the cluster list below part of the page. 
 
-![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/c1b30a28-8c91-47a9-b5ad-ade6fb41663b)
+![figure8](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/4c3672e5-3009-4250-b822-014ca50899cb)
 
-![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/fddf719c-b42f-4c9a-9ee6-fb1905f72037)
+![figure 9](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/efdcb645-c63f-40ad-b859-f33a4e807844)
 
 **When you click the “Single Cell Clusters”, you will see a selection bar**
 
 Select one of the options and you will see the UMAP plot for the selected tissue. Also, there is another selection bar next to the UMAP plot which can generate the DotPlot with the selected gene. Lastly, at the bottom of the page, you can see the differential analysis belonging to the selected cluster. 
 
-![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/a5954088-fd81-4ce8-978f-ba4b8b672e88)
+![figure 10](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/cefe827b-71f1-4d6b-9a0a-42448e08ea26)
 
 Fort he DotPlot: 
 
-![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/98806d21-8e74-45a3-a0c6-de1874dc8799)
+![figure 11](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/12113891-b7a5-4a3e-bccf-12abafd6702d)
 
-![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/6e4ae348-8198-430c-87ef-f564583173ad)
+![figure 123](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/3c51afdc-687f-4d30-a22d-f3d4a68e08c6)
 
 For the differential expression analysis: 
 
-![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/5bb25f04-131a-4d80-a681-0a3cb072e6b3)
+![figure 12](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/97318228-89cb-409a-a48a-1cc7f4c54b98)
 
 **Click the “Publications”:**
 
 You will see the list of the publications and the number of the genes below. 
 
-![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/9ea66ed5-11d0-44be-ba8a-bd5f9aa9df9c)
+![figure 13](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/1dd129a0-c92e-457c-95d9-adb449cb8068)
 
-![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/0d3f90ee-f3d7-4ebf-9b72-2628a176eb99)
-
+![figure 14](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/aade82f3-084a-4606-a6c7-b7e11cca17b4)
 
 **Click the “Motifs”:**
 
 You will see the selection bar for Motifs, then, after the selection motifs you will see the motifs information and other gene information. 
 
-![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/e9fb0e5b-9ca5-4c96-87fe-9f4e64d85662)4
+![figure 15](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/ba26eebc-abd3-4e6f-b0f5-41fa4047316b)
 
-![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/3df7f90f-edc3-43f1-9e98-692d686995bc)
+![figure 16](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/50c540e7-666a-4812-8c12-669a677134ce)
 
-**Click the “Protein Atlas” :**
+**Click the “Protein Atlas”:**
 
 You will see the list of genes in the Human Protein Atlas databases by selecting the keywords Cilia, Cilium, Centrosome, Flagella, and Flagellum, respectively. 
- 
-![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/76479cbd-cef1-479f-9a27-f0d39d2aa199)
+
+ ![figure 17](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/2a741027-b57f-4b6c-a200-dc244a2245cd)
+
 
 
