@@ -63,7 +63,7 @@ Choose one of the options, and you'll be presented with the UMAP plot correspond
 
 ![figure 10](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/cefe827b-71f1-4d6b-9a0a-42448e08ea26)
 
-Fort he DotPlot: 
+For the DotPlot: 
 
 ![figure 11](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/12113891-b7a5-4a3e-bccf-12abafd6702d)
 
