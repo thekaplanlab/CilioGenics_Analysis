@@ -1,4 +1,4 @@
-**CilioGenics is an integrated method for predicting the ciliary genes**
+# CilioGenics is an integrated method for predicting the ciliary genes 
 
 To more accurately predict ciliary genes, CilioGenics combines several approaches, including as single-cell RNA sequencing, protein-protein interactions (PPIs), comparative genomics, transcription factor (TF)-network analysis, and text mining.
 
@@ -18,96 +18,82 @@ cd CilioGenics_Analysis
 
 R ciliogenics_scores.R
 ```
+## CilioGenics : Step-by-Step Tutorial 
 
-**Single cell RNA-seq analysis**
+**Step 1 –** 
+Go to (https://ciliogenics.com/?page=Home)
 
-**Load the following package**
+When you go to the website, you will see 1: “Gene-Search” bar and 2: “Explore the gene list”.
 
-``` python
-library(Seurat)
-```
+![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/23f05436-40ec-4e2f-bd31-d063ee19879f) 
 
-Dowload scRNA-seq file from NCBI and load the file.
+ 
+**Let’s go with option 1:**
 
-``` python
-lung_dir <- dir("./GSE178360_RAW")
-lung_dir_1 <- lung_dir[grepl("filtered", lung_dir)]
-lungs <- list()
-#install.packages("hdf5r") if it is not installed.
-for (i in 1:3){
-  lung_mat <- Read10X_h5(lung_dir_1[i])
-  lung_mat1 <- CreateSeuratObject(lung_mat)
-  lungs[[i]]<-lung_mat1
-}
-lungs.list<-lapply(X = lungs, FUN = function(x) {
-  x<-NormalizeData(x)
-  x<-FindVariableFeatures(x, selection.method = "vst", nfeatures = 2000)
-})
-#ctr+shft+alt+m replace all
-features<-SelectIntegrationFeatures(object.list = lungs.list)
-lungs.anchors<-FindIntegrationAnchors(object.list = lungs.list, anchor.features = features)
-integrate_all <- Reduce(intersect, lapply(lungs.anchors@object.list, rownames)) # create list of common genes to keep
-lungs.combined<-IntegrateData(anchorset = lungs.anchors, features.to.integrate = integrate_all)
-DefaultAssay(lungs.combined)<-"integrated"
-```
+If you search for a gene (e.g ARL13B)
 
-**Data visulaziation**
+![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/4bdb9646-0db6-4b21-bd3b-dd80ba50ea9a)
 
-``` python
-lungs.combined <- readRDS("lungs.combined.RDS", refhook = NULL)
-lungs.combined<-ScaleData(lungs.combined, verbose = FALSE)
-lungs.combined<-RunPCA(lungs.combined, npcs = 30, verbose = FALSE)
-ElbowPlot(lungs.combined, ndims = 30)
-lungs.combined<-RunUMAP(lungs.combined, reduction = "pca", dims = 1:23)
-lungs.combined<-RunTSNE(lungs.combined, reduction = "pca", dims = 1:23)
-lungs.combined<-FindNeighbors(lungs.combined, reduction = "pca", dims = 1:23)
-lungs.combined<-FindClusters(lungs.combined, resolution = 0.1)
-DimPlot(lungs.combined, reduction = "umap", label = TRUE)
-```
+ 
+You will see a box for “Gene info” and another box for “CilioGenics scores for each category”
 
-**Annotate cells in scRNA-seq data**
+ ![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/db1ddb25-f29b-4553-a576-387d7765108f) 
 
-``` python
-plot1 <- DimPlot(object = lungs.combined, reduction = "umap",label = TRUE, repel = FALSE,
-        group.by = 'customclassif')
-```
+**Let’s go with the second option:**
 
-![Umap_Cell_names](https://user-images.githubusercontent.com/12661265/225908354-d829eef2-8739-482b-8bd7-b044ecf21c16.png)
+Click “Explore the gene list” and you will see a gene list. You can calibrate the range of the score with the help of the scale bar under each title. 
 
-**UMAP for IFT88, TMEM231, NEK10, WDR54, WDR38, ZNF474, LGR5 (a non-ciliary gene)**
+ ![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/6273bfdb-4a13-405a-8880-8b64a3903643)
 
-``` python
-FeaturePlot(lung.all.combined, features = c("IFT88", "TMEM231", "NEK10", "WDR54", 
-                                            "WDR38", "ZNF474", "LGR5"),min.cutoff = "q10", 
-            max.cutoff = "q90")
-```
+When you go to the “Explore data” on the left sidebar, you will see some heads that the other functions or properties belong to CilioGenics. 
 
-LRG5 is only displayed as a negative control as it is not a ciliary candidate gene.
+ ![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/3913e577-8cc1-4d79-b35c-1ca20453bb84)
 
-![UMAP_IFT88](https://user-images.githubusercontent.com/12661265/225918548-1e3e476e-741d-467b-97bd-ca8562a402e2.png)
+**Click the “Phylogenetic Analysis”**
 
-**Comparative Genomics (Phylogenetic profiling)**
+You will see an interactive heatmap that shows the clusters between ciliated and non-ciliated cells. Also, you can see the genes in the cluster list below part of the page. 
 
-**Load the following packages**
+![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/c1b30a28-8c91-47a9-b5ad-ade6fb41663b)
 
-``` python
-library(data.table)
-library(geneName)
-library(readxl)
-library(dplyr)
-library(tidyr)
-library(stringr)
-library(biomaRt)
-library(ontologyIndex)
-library(cluster)
+![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/fddf719c-b42f-4c9a-9ee6-fb1905f72037)
 
-newscores_50 <- filtering(pwd, 0.001, 50)
-gower_dist_50 <- daisy(newscores_50[, 2:73], metric = "gower")
-cluster_50 <- hclust(gower_dist_50, method = "ward.D2")
-tree_50 <- cutree(cluster_50, k = 40)
-aa_50 <- cbind(newscores_50[, c(1, 2)], tree_50) # Genes with clusters
-aa_50_temp <- aa_50
-colnames(aa_50_temp)[3] <- "cluster_num"
-a <- as.data.frame(cbind(newscores_50, tree_50))
-a[, 2:73] <- lapply(a[, 2:73], function(x) as.numeric(as.character(x)))
-```
+**When you click the “Single Cell Clusters”, you will see a selection bar**
+
+Select one of the options and you will see the UMAP plot for the selected tissue. Also, there is another selection bar next to the UMAP plot which can generate the DotPlot with the selected gene. Lastly, at the bottom of the page, you can see the differential analysis belonging to the selected cluster. 
+
+![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/a5954088-fd81-4ce8-978f-ba4b8b672e88)
+
+Fort he DotPlot: 
+
+![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/98806d21-8e74-45a3-a0c6-de1874dc8799)
+
+![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/6e4ae348-8198-430c-87ef-f564583173ad)
+
+For the differential expression analysis: 
+
+![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/5bb25f04-131a-4d80-a681-0a3cb072e6b3)
+
+**Click the “Publications”:**
+
+You will see the list of the publications and the number of the genes below. 
+
+![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/9ea66ed5-11d0-44be-ba8a-bd5f9aa9df9c)
+
+![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/0d3f90ee-f3d7-4ebf-9b72-2628a176eb99)
+
+
+**Click the “Motifs”:**
+
+You will see the selection bar for Motifs, then, after the selection motifs you will see the motifs information and other gene information. 
+
+![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/e9fb0e5b-9ca5-4c96-87fe-9f4e64d85662)4
+
+![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/3df7f90f-edc3-43f1-9e98-692d686995bc)
+
+**Click the “Protein Atlas” :**
+
+You will see the list of genes in the Human Protein Atlas databases by selecting the keywords Cilia, Cilium, Centrosome, Flagella, and Flagellum, respectively. 
+ 
+![resim](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/76479cbd-cef1-479f-9a27-f0d39d2aa199)
+
+
