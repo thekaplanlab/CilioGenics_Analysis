@@ -57,7 +57,7 @@ An interactive heatmap illustrating the distinctions between ciliated and non-ci
 
 ![figure 9](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/efdcb645-c63f-40ad-b859-f33a4e807844)
 
-**When you click the “Single cell cluster”, you will see a selection bar**
+**When you click the “Single cell clusters”, you will see a selection bar**
 
 Choose one of the options, and you'll be presented with the UMAP plot corresponding to the selected tissue. Additionally, there is another selection bar adjacent to the UMAP plot that can generate the DotPlot featuring the chosen gene. Finally, at the bottom of the page, you can observe the results of the selected cluster's differential analysis.
 
