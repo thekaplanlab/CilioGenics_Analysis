@@ -51,7 +51,7 @@ When you go to the “Explore data” on the left sidebar, you will see some hea
 
 There will be a display of an interactive heatmap depicting each cluster and illustrating the distribution of genes between ciliated and non-ciliated cells.
 
-An interactive heatmap illustrating the distinctions between ciliated and non-ciliated cells will be displayed. Additionally, you can view the list of genes in the cluster located below on the page.
+Additionally, you can view the list of genes in the cluster located below on the page.
 
 ![figure8](https://github.com/thekaplanlab/CilioGenics_Analysis/assets/126083033/4c3672e5-3009-4250-b822-014ca50899cb)
 
